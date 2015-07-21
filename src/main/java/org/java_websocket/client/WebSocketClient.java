@@ -221,6 +221,10 @@ public abstract class WebSocketClient extends WebSocketAdapter implements Runnab
 			onWebsocketError( conn, e );
 			conn.closeConnection( CloseFrame.NEVER_CONNECTED, e.getMessage() );
 			return;
+		} catch (AssertionError e ) {			
+			onWebsocketError( conn, new Exception(e));
+			conn.closeConnection( CloseFrame.NEVER_CONNECTED, e.getMessage() );
+			return;
 		}
 
 		ByteBuffer buff = ByteBuffer.allocate( WebSocketImpl.RCVBUF );
